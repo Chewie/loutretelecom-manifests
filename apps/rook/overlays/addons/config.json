@@ -1,0 +1,10 @@
+{
+  "appName": "rook",
+  "userGivenName": "rook",
+  "destNamespace": "default",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "apps/rook/overlays/addons",
+  "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
+  "srcTargetRevision": "",
+  "labels": null
+}
