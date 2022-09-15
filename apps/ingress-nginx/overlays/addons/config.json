@@ -1,7 +1,7 @@
 {
   "appName": "ingress-nginx",
   "userGivenName": "ingress-nginx",
-  "destNamespace": "default",
+  "destNamespace": "ingress-nginx",
   "destServer": "https://kubernetes.default.svc",
   "srcPath": "apps/ingress-nginx/overlays/addons",
   "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
