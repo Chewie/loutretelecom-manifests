@@ -1,0 +1,18 @@
+resources:
+  - https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.3.1/deploy/static/provider/cloud/deploy.yaml
+
+patches:
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --default-ssl-certificate=cert-manager/wildcard-tls
+    target:
+      kind: Deployment
+      name: ingress-nginx-controller
+
+configMapGenerator:
+  - name: ingress-nginx-controller
+    namespace: ingress-nginx
+    behavior: merge
+    literals:
+      - force-ssl-redirect="true"
