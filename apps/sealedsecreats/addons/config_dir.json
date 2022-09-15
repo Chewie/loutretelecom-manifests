@@ -1,0 +1,13 @@
+{
+  "appName": "sealedsecreats",
+  "userGivenName": "sealedsecreats",
+  "destNamespace": "sealedsecrets",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "manifests/addons/sealedsecrets/",
+  "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
+  "srcTargetRevision": "",
+  "labels": null,
+  "annotations": null,
+  "exclude": "",
+  "include": ""
+}
