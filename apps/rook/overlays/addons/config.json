@@ -1,7 +1,7 @@
 {
   "appName": "rook",
   "userGivenName": "rook",
-  "destNamespace": "default",
+  "destNamespace": "rook-ceph",
   "destServer": "https://kubernetes.default.svc",
   "srcPath": "apps/rook/overlays/addons",
   "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
