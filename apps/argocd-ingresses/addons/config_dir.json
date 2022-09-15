@@ -1,0 +1,12 @@
+{
+  "appName": "argocd-ingresses",
+  "userGivenName": "argocd-ingresses",
+  "destNamespace": "default",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "manifests/addons/argocd/",
+  "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
+  "srcTargetRevision": "",
+  "labels": null,
+  "exclude": "",
+  "include": ""
+}
