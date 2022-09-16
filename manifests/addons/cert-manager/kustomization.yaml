@@ -1,0 +1,6 @@
+resources:
+  - https://github.com/cert-manager/cert-manager/releases/download/v1.9.1/cert-manager.yaml
+  - clusterissuer-staging.yaml
+  - clusterissuer-prod.yaml
+  - secret-loutretel-tsig.yaml
+  - wildcard-certificate.yaml

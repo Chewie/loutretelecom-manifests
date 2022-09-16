@@ -1,0 +1,22 @@
+   apiVersion: cert-manager.io/v1
+   kind: ClusterIssuer
+   metadata:
+     name: letsencrypt-prod
+   spec:
+     acme:
+       # The ACME server URL
+       server: https://acme-v02.api.letsencrypt.org/directory
+       # Email address used for ACME registration
+       email: sztern.kevin@gmail.com
+       # Name of a secret used to store the ACME account private key
+       privateKeySecretRef:
+         name: letsencrypt-prod
+       solvers:
+         - dns01:
+             rfc2136:
+               nameserver: ns1.deliciousmuffins.net:53
+               tsigKeyName: loutre.tel
+               tsigAlgorithm: HMACMD5
+               tsigSecretSecretRef:
+                 name: loutretel-tsig-secret
+                 key: tsig-secret-key
