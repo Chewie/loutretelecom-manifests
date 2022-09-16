@@ -1,0 +1,16 @@
+resources:
+  - https://github.com/prometheus-operator/kube-prometheus.git?ref=v0.11.0
+  - grafana-ingress.yaml
+  - prom-ingress.yaml
+  - prometheus-clusterrole.yaml
+  - prometheus-clusterrolebinding.yaml
+  - loki-distributed.yaml # generated from helm template grafana/loki-distributed
+  - loki-ingress.yaml
+
+# actually not that secret, so no need to seal it
+secretGenerator:
+  - name: grafana-datasources
+    namespace: monitoring
+    behavior: replace
+    files:
+      - grafana-datasources.yaml
