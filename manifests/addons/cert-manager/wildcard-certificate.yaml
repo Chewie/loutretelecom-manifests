@@ -7,6 +7,12 @@ spec:
   dnsNames:
   - loutre.tel
   - "*.loutre.tel"
+  - kevinsztern.fr
+  - "*.kevinsztern.fr"
+  - mesburnes.fr
+  - "*.mesburnes.fr"
+  - deliciousmuffins.net
+  - "*.deliciousmuffins.net"
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
