@@ -14,8 +14,8 @@ spec:
       paths:
       - backend:
           service:
-            name: loki
+            name: loki-gateway
             port:
-              name: http-metrics
+              name: http
         path: /
         pathType: Prefix
