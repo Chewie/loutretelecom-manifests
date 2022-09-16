@@ -14,3 +14,10 @@ secretGenerator:
     behavior: replace
     files:
       - grafana-datasources.yaml
+
+# Temporary, waiting for server side apply in argocd 1.25
+patches:
+  - path: patches/prometheus-crd.yaml
+    target:
+      name: prometheuses.monitoring.coreos.com
+      kind: CustomResourceDefinition
