@@ -1,7 +1,7 @@
 {
   "appName": "kube-prometheus",
   "userGivenName": "kube-prometheus",
-  "destNamespace": "default",
+  "destNamespace": "monitoring",
   "destServer": "https://kubernetes.default.svc",
   "srcPath": "apps/kube-prometheus/overlays/addons",
   "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
