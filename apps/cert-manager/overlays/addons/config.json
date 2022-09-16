@@ -1,0 +1,11 @@
+{
+  "appName": "cert-manager",
+  "userGivenName": "cert-manager",
+  "destNamespace": "default",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "apps/cert-manager/overlays/addons",
+  "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
+  "srcTargetRevision": "",
+  "labels": null,
+  "annotations": null
+}
