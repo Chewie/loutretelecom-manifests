@@ -15,6 +15,9 @@ secretGenerator:
     files:
       - grafana-datasources.yaml
 
+patchesStrategicMerge:
+  - patches/delete-ns-monitoring.yaml
+
 # Temporary, waiting for server side apply in argocd 1.25
 patches:
   - path: patches/prometheus-crd.yaml
