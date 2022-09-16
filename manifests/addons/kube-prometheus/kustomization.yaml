@@ -6,6 +6,7 @@ resources:
   - prometheus-clusterrolebinding.yaml
   - loki-distributed.yaml # generated from helm template grafana/loki-distributed
   - loki-ingress.yaml
+  - promtail.yaml # generated from helm template grafana/promtail
 
 # actually not that secret, so no need to seal it
 secretGenerator:
