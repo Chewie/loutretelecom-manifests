@@ -1,7 +1,7 @@
 {
   "appName": "oauth2-proxy",
   "userGivenName": "oauth2-proxy",
-  "destNamespace": "default",
+  "destNamespace": "oauth2-proxy",
   "destServer": "https://kubernetes.default.svc",
   "srcPath": "apps/oauth2-proxy/overlays/addons",
   "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
