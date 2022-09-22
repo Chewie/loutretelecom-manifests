@@ -1,0 +1,15 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  creationTimestamp: null
+  name: aws-creds
+  namespace: ack-system
+spec:
+  encryptedData:
+    credentials: AgDepQCyE+y14+sKqL8OMbsc91pXxBlyZFv9u75oss/I19lTguy/sdWKocXTPAJDSYpUl6+9UnpO8Ca995l9vW5A6HKRltfc4O/0b/w4muHfWRKcpdnU9+140IgxpFGPrV0TkurX0bOzmR9TMeKIURVY2Kux22ZD7NF9Xnj8nkI/oFYuEX5CptE2Yzjiv77m+B2gnYz/M2T0s4CUrnOQOdNAcDUA7j4/UHe7IzDlXYPa3qhE7ztc2pr8IqMs//amQnwQD3merxEjZmqdMWr8k+8n+HaNNn3gszJOh3OBZROfpeWtcnkxVKguEAoR/r4ZYUErWgoJyKbs9BK6qFMZ86U7XQAIhNwWhA7ABTzmAoGfOSRTF9lsh2Vv7Qm2RkuXFIA4/yLwAyw2jU3ExGIASnXQZ5lpioMat+it63UxbcRCDiJkV20y/N9vRm9v4AAX3KSEi3MyFEa2fKrtykZYyzFj1/EGhV4suGnGNjjtqzF6owUiwXhe0dtisatic+x7ctYv+2T+5moSlJAYHbaD+lvn23ou8o+K1jKyYREUEPVEm8bp52KyFxSG7bG0o3+44m8WRi5jiI2Exnsfm+Q8lxNmkdSHMUidjqa0I//NDqWoFKLum+FDvDtAjWweyYsJi9cfr0zxH/E0orgPpey+EMaOcewaLXqOyZ0Hx1Re+kzvhXpCtRS36E8BmxKebgIRbfjM3R4LFP0djW9ZYFv4hB6xUAgqSqLqY34hB6XqOWfRQyEFOLEcSTuAjyvVcT9hUtilI7+JwFzajRajerYs4RCVLy0mgPLvLgPwfu4IjgIoHRzdMh6uZIIi6ncgNDaXTIKJTfQlQ2ixZBFEgeAhJhXiwkW4Qq4=
+  template:
+    data: null
+    metadata:
+      creationTimestamp: null
+      name: aws-creds
+      namespace: ack-system

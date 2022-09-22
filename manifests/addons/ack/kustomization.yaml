@@ -1,0 +1,6 @@
+resources:
+  - https://github.com/aws-controllers-k8s/s3-controller//config/default/?ref=v0.1.5
+  - aws-creds.yaml
+
+patchesStrategicMerge:
+  - patches/mount_secret.yaml
