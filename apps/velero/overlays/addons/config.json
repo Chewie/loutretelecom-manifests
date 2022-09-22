@@ -1,0 +1,11 @@
+{
+  "appName": "velero",
+  "userGivenName": "velero",
+  "destNamespace": "default",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "apps/velero/overlays/addons",
+  "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
+  "srcTargetRevision": "",
+  "labels": null,
+  "annotations": null
+}
