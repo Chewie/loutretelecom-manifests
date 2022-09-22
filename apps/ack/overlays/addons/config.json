@@ -1,0 +1,11 @@
+{
+  "appName": "ack",
+  "userGivenName": "ack",
+  "destNamespace": "default",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "apps/ack/overlays/addons",
+  "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
+  "srcTargetRevision": "",
+  "labels": null,
+  "annotations": null
+}
