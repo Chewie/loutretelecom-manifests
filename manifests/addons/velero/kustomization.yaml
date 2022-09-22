@@ -1,3 +1,4 @@
 resources:
   - velero.yaml
   - credentials.yaml
+  - daily-schedule.yaml
