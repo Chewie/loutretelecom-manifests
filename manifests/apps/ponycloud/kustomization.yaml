@@ -1,0 +1,32 @@
+resources:
+  - mariadb.yaml
+  - redis.yaml
+  - nextcloud.yaml
+  - secret.yaml
+
+namespace: ponycloud
+
+configMapGenerator:
+  - name: nginx
+    files:
+      - config/nginx.conf
+  - name: mariadb-config
+    literals:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+
+vars:
+  - name: MYSQL_SERVICE_NAME
+    objref:
+      kind: Service
+      name: mariadb
+      apiVersion: v1
+    fieldRef:
+      fieldPath: metadata.name
+  - name: REDIS_SERVICE_NAME
+    objref:
+      kind: Service
+      name: redis
+      apiVersion: v1
+    fieldRef:
+      fieldPath: metadata.name

@@ -1,0 +1,125 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+  labels:
+    app: nextcloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nextcloud
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      containers:
+        - name: web
+          image: nginx
+          volumeMounts:
+            - name: nextcloud-data
+              mountPath: /var/www/html
+            - name: config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+          ports:
+            - containerPort: 80
+        - name: app
+          image: nextcloud:24-fpm
+          env:
+            - name: NEXTCLOUD_TRUSTED_DOMAINS
+              value: "cloud.loutre.tel"
+            - name: TRUSTED_PROXIES
+              value: "10.0.0.0/8"
+            - name: MYSQL_HOST
+              value: $(MYSQL_SERVICE_NAME)
+            - name: REDIS_HOST
+              value: $(REDIS_SERVICE_NAME)
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mariadb-config
+                  key: MYSQL_DATABASE
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mariadb-config
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-secret
+                  key: MYSQL_PASSWORD
+          volumeMounts:
+            - name: nextcloud-data
+              mountPath: /var/www/html
+        - name: cron
+          image: nextcloud:24-fpm
+          command: ["/cron.sh"]
+          volumeMounts:
+            - name: nextcloud-data
+              mountPath: /var/www/html
+      volumes:
+        - name: nextcloud-data
+          persistentVolumeClaim:
+            claimName: nextcloud-data
+        - name: config
+          configMap:
+            name: nginx
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud
+spec:
+  selector:
+    app: nextcloud
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      name: http
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextcloud
+  namespace: ponycloud
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: cloud.loutre.tel
+    http:
+      paths:
+      - backend:
+          service:
+            name: nextcloud
+            port:
+              name: http
+        path: /
+        pathType: Prefix
+  - host: cloud.kevinsztern.fr
+    http:
+      paths:
+      - backend:
+          service:
+            name: nextcloud
+            port:
+              name: http
+        path: /
+        pathType: Prefix
