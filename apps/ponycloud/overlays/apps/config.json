@@ -1,9 +1,9 @@
 {
   "appName": "ponycloud",
   "userGivenName": "ponycloud",
-  "destNamespace": "default",
+  "destNamespace": "ponycloud",
   "destServer": "https://kubernetes.default.svc",
-  "srcPath": "apps/ponycloud/overlays/addons",
+  "srcPath": "apps/ponycloud/overlays/apps",
   "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
   "srcTargetRevision": "",
   "labels": null,
