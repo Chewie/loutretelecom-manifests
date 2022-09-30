@@ -3966,8 +3966,8 @@ items:
             name: metrics
           resources:
             limits:
-              cpu: "1"
-              memory: 512Mi
+              cpu: "2"
+              memory: 2Gi
             requests:
               cpu: 500m
               memory: 128Mi
@@ -4046,8 +4046,8 @@ items:
           name: restic
           resources:
             limits:
-              cpu: "1"
-              memory: 1Gi
+              cpu: "2"
+              memory: 2Gi
             requests:
               cpu: 500m
               memory: 512Mi
