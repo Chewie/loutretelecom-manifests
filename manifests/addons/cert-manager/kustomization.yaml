@@ -3,4 +3,5 @@ resources:
   - clusterissuer-staging.yaml
   - clusterissuer-prod.yaml
   - webhook-gandi.yaml
+  - gandi-credentials.yaml
   - wildcard-certificate.yaml
