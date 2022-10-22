@@ -289,7 +289,7 @@ metadata:
     heritage: Helm
 spec:
   secretName: release-name-cert-manager-webhook-gandi-ca
-  duration: 43800h # 5y
+  duration: 43800h0m0s # 5y
   issuerRef:
     name: release-name-cert-manager-webhook-gandi-selfsign
   commonName: "ca.cert-manager-webhook-gandi.cert-manager"
@@ -309,7 +309,7 @@ metadata:
     heritage: Helm
 spec:
   secretName: release-name-cert-manager-webhook-gandi-webhook-tls
-  duration: 8760h # 1y
+  duration: 8760h0m0s # 1y
   issuerRef:
     name: release-name-cert-manager-webhook-gandi-ca
   dnsNames:
