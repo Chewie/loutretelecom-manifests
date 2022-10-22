@@ -13,10 +13,10 @@
          name: letsencrypt-staging
        solvers:
          - dns01:
-             rfc2136:
-               nameserver: ns1.deliciousmuffins.net:53
-               tsigKeyName: loutre.tel
-               tsigAlgorithm: HMACMD5
-               tsigSecretSecretRef:
-                 name: loutretel-tsig-secret
-                 key: tsig-secret-key
+             webhook:
+               groupName: acme.bwolf.me
+               solverName: gandi
+               config:
+                 apiKeySecretRef:
+                   key: api-token
+                   name: gandi-credentials

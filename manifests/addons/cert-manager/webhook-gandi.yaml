@@ -1,0 +1,350 @@
+---
+# Source: cert-manager-webhook-gandi/templates/rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: release-name-cert-manager-webhook-gandi
+  namespace: "cert-manager"
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+---
+# Source: cert-manager-webhook-gandi/templates/rbac.yaml
+# Grant cert-manager permission to validate using our apiserver
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: release-name-cert-manager-webhook-gandi:domain-solver
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+rules:
+  - apiGroups:
+      - acme.bwolf.me
+    resources:
+      - "*"
+    verbs:
+      - "create"
+---
+# Source: cert-manager-webhook-gandi/templates/rbac.yaml
+# Grant cert-manager-webhook-gandi permission to read the flow control mechanism (APF)
+# API Priority and Fairness is enabled by default in Kubernetes 1.20
+# https://kubernetes.io/docs/concepts/cluster-administration/flow-control/
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: release-name-cert-manager-webhook-gandi:flowcontrol-solver
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+rules:
+  - apiGroups:
+      - "flowcontrol.apiserver.k8s.io"
+    resources:
+      - "prioritylevelconfigurations"
+      - "flowschemas"
+    verbs:
+      - "list"
+      - "watch"
+---
+# Source: cert-manager-webhook-gandi/templates/rbac.yaml
+# apiserver gets the auth-delegator role to delegate auth decisions to
+# the core apiserver
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: release-name-cert-manager-webhook-gandi:auth-delegator
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: release-name-cert-manager-webhook-gandi
+    namespace: "cert-manager"
+---
+# Source: cert-manager-webhook-gandi/templates/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: release-name-cert-manager-webhook-gandi:domain-solver
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: release-name-cert-manager-webhook-gandi:domain-solver
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: cert-manager
+    namespace: "cert-manager"
+---
+# Source: cert-manager-webhook-gandi/templates/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: release-name-cert-manager-webhook-gandi:flowcontrol-solver
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: release-name-cert-manager-webhook-gandi:flowcontrol-solver
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: release-name-cert-manager-webhook-gandi
+    namespace: "cert-manager"
+---
+# Source: cert-manager-webhook-gandi/templates/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: release-name-cert-manager-webhook-gandi:secret-reader
+  namespace: "cert-manager"
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - "secrets"
+    resourceNames:
+      - "gandi-credentials"
+    verbs:
+      - "get"
+      - "watch"
+---
+# Source: cert-manager-webhook-gandi/templates/rbac.yaml
+# Grant the webhook permission to read the ConfigMap containing the Kubernetes
+# apiserver's requestheader-ca-certificate
+# This ConfigMap is automatically created by the Kubernetes apiserver
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: release-name-cert-manager-webhook-gandi:webhook-authentication-reader
+  namespace: kube-system
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: extension-apiserver-authentication-reader
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: release-name-cert-manager-webhook-gandi
+    namespace: "cert-manager"
+---
+# Source: cert-manager-webhook-gandi/templates/rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: release-name-cert-manager-webhook-gandi:secret-reader
+  namespace: "cert-manager"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: release-name-cert-manager-webhook-gandi:secret-reader
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: release-name-cert-manager-webhook-gandi
+    namespace: "cert-manager"
+---
+# Source: cert-manager-webhook-gandi/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: release-name-cert-manager-webhook-gandi
+  namespace: "cert-manager"
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 443
+      targetPort: https
+      protocol: TCP
+      name: https
+  selector:
+    app: cert-manager-webhook-gandi
+    release: release-name
+---
+# Source: cert-manager-webhook-gandi/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-name-cert-manager-webhook-gandi
+  namespace: "cert-manager"
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+spec:
+  replicas: 
+  selector:
+    matchLabels:
+      app: cert-manager-webhook-gandi
+      release: release-name
+  template:
+    metadata:
+      labels:
+        app: cert-manager-webhook-gandi
+        release: release-name
+    spec:
+      serviceAccountName: release-name-cert-manager-webhook-gandi
+      containers:
+        - name: cert-manager-webhook-gandi
+          image: "bwolf/cert-manager-webhook-gandi:0.2.0"
+          imagePullPolicy: IfNotPresent
+          args:
+            - --tls-cert-file=/tls/tls.crt
+            - --tls-private-key-file=/tls/tls.key
+            - --v=2
+          env:
+            - name: GROUP_NAME
+              value: "acme.bwolf.me"
+          ports:
+            - name: https
+              containerPort: 443
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              scheme: HTTPS
+              path: /healthz
+              port: https
+          readinessProbe:
+            httpGet:
+              scheme: HTTPS
+              path: /healthz
+              port: https
+          volumeMounts:
+            - name: certs
+              mountPath: /tls
+              readOnly: true
+          resources:
+            {}
+      volumes:
+        - name: certs
+          secret:
+            secretName: release-name-cert-manager-webhook-gandi-webhook-tls
+---
+# Source: cert-manager-webhook-gandi/templates/apiservice.yaml
+apiVersion: apiregistration.k8s.io/v1
+kind: APIService
+metadata:
+  name: v1alpha1.acme.bwolf.me
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+  annotations:
+    cert-manager.io/inject-ca-from: "cert-manager/release-name-cert-manager-webhook-gandi-webhook-tls"
+spec:
+  group: acme.bwolf.me
+  groupPriorityMinimum: 1000
+  versionPriority: 15
+  service:
+    name: release-name-cert-manager-webhook-gandi
+    namespace: "cert-manager"
+  version: v1alpha1
+---
+# Source: cert-manager-webhook-gandi/templates/pki.yaml
+# Generate a CA Certificate used to sign certificates for the webhook
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: release-name-cert-manager-webhook-gandi-ca
+  namespace: "cert-manager"
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+spec:
+  secretName: release-name-cert-manager-webhook-gandi-ca
+  duration: 43800h # 5y
+  issuerRef:
+    name: release-name-cert-manager-webhook-gandi-selfsign
+  commonName: "ca.cert-manager-webhook-gandi.cert-manager"
+  isCA: true
+---
+# Source: cert-manager-webhook-gandi/templates/pki.yaml
+# Finally, generate a serving certificate for the webhook to use
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: release-name-cert-manager-webhook-gandi-webhook-tls
+  namespace: "cert-manager"
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+spec:
+  secretName: release-name-cert-manager-webhook-gandi-webhook-tls
+  duration: 8760h # 1y
+  issuerRef:
+    name: release-name-cert-manager-webhook-gandi-ca
+  dnsNames:
+  - release-name-cert-manager-webhook-gandi
+  - release-name-cert-manager-webhook-gandi.cert-manager
+  - release-name-cert-manager-webhook-gandi.cert-manager.svc
+---
+# Source: cert-manager-webhook-gandi/templates/pki.yaml
+# Create a selfsigned Issuer, in order to create a root CA certificate for
+# signing webhook serving certificates
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: release-name-cert-manager-webhook-gandi-selfsign
+  namespace: "cert-manager"
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+spec:
+  selfSigned: {}
+---
+# Source: cert-manager-webhook-gandi/templates/pki.yaml
+# Create an Issuer that uses the above generated CA certificate to issue certs
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: release-name-cert-manager-webhook-gandi-ca
+  namespace: "cert-manager"
+  labels:
+    app: cert-manager-webhook-gandi
+    chart: cert-manager-webhook-gandi-v0.2.0
+    release: release-name
+    heritage: Helm
+spec:
+  ca:
+    secretName: release-name-cert-manager-webhook-gandi-ca

@@ -16,7 +16,7 @@ spec:
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
-    name: letsencrypt-prod
+    name: letsencrypt-staging
   secretName: wildcard-tls
   privateKey:
     rotationPolicy: Always
