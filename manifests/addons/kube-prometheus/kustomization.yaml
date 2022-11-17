@@ -4,7 +4,7 @@ resources:
   - prom-ingress.yaml
   - prometheus-clusterrole.yaml
   - prometheus-clusterrolebinding.yaml
-  - loki-distributed.yaml # generated from helm template grafana/loki-distributed
+  - loki.yaml # generated from helm template grafana/loki
   - loki-ingress.yaml
   - promtail.yaml # generated from helm template grafana/promtail
 
