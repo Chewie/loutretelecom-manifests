@@ -1,5 +1,6 @@
 resources:
   - https://github.com/prometheus-operator/kube-prometheus.git?ref=v0.11.0
+  - https://github.com/grafana/agent//production/operator/crds/?ref=v0.29.0
   - grafana-ingress.yaml
   - prom-ingress.yaml
   - prometheus-clusterrole.yaml
