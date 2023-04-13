@@ -8,3 +8,7 @@ grafana:
     ingressClassName: nginx
   persistence:
     enabled: true
+
+loki:
+  minio:
+    enabled: true
