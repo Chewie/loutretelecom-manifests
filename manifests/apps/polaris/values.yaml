@@ -1,0 +1,10 @@
+polaris:
+  dashboard:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - polaris.loutre.tel
+      annotations:
+        - nginx.ingress.kubernetes.io/auth-url: "https://sso.loutre.tel/oauth2/auth"
+        - nginx.ingress.kubernetes.io/auth-signin: "https://sso.loutre.tel/oauth2/start?rd=/redirect/$http_host$request_uri"
