@@ -28,3 +28,6 @@ helmCharts:
           type: 'filesystem'
       singleBinary:
         replicas: 1
+      read:
+        persistence:
+          enableStatefulSetAutoDeletePVC: false
