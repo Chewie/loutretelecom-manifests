@@ -1,0 +1,15 @@
+helmCharts:
+  - name: grafana
+    version: 6.52.9
+    repo: https://grafana.github.io/helm-charts
+    releaseName: grafana
+    valuesInline:
+      grafana.ini:
+        server:
+          domain: grafana.loutre.tel
+      ingress:
+        enabled: true
+        hosts: ["grafana.loutre.tel"]
+        ingressClassName: nginx
+      persistence:
+        enabled: true
