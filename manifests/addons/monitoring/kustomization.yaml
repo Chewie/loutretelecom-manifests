@@ -1,3 +1,4 @@
+namespace: monitoring
 helmCharts:
   - name: grafana
     version: 6.52.9
