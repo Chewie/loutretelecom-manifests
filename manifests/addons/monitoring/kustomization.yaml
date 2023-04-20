@@ -26,6 +26,7 @@ helmCharts:
           replication_factor: 1
         storage:
           type: 'filesystem'
+        auth_enabled: false
       singleBinary:
         replicas: 1
         persistence:
