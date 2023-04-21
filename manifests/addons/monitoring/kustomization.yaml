@@ -33,3 +33,13 @@ helmCharts:
           enableStatefulSetAutoDeletePVC: false
       gateway:
         affinity: ""
+      monitoring:
+        selfMonitoring:
+          grafanaAgent:
+            installOperator: false
+  - name: grafana-agent-operator
+    version: 0.2.15
+    repo: https://grafana.github.io/helm-charts
+    releaseName: grafana-agent-operator
+    namespace: monitoring
+    includeCRDs: true
