@@ -20,7 +20,7 @@ spec:
                 - /bin/sh
                 - -c
                 - mariadb --password=$MYSQL_PASSWORD -e "BACKUP STAGE START; BACKUP STAGE BLOCK_COMMIT"
-          pre:
+          post:
             - exec:
               command:
                 - /bin/sh
