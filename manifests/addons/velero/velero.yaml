@@ -3900,6 +3900,8 @@ items:
     objectStorage:
       bucket: loutretelecom-cluster-backup
     provider: aws
+    config:
+      region: eu-west-3
 - apiVersion: velero.io/v1
   kind: VolumeSnapshotLocation
   metadata:
@@ -3910,6 +3912,8 @@ items:
     namespace: velero
   spec:
     provider: aws
+    config:
+      region: eu-west-3
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
