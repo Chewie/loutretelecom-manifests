@@ -8,7 +8,24 @@ spec:
   schedule: '@every 24h'
   template:
     csiSnapshotTimeout: 0s
-    hooks: {}
+    hooks:
+      resources:
+        - name: mariadb
+          labelSelector:
+            matchLabels:
+              app: mariadb
+          pre:
+            - exec:
+              command:
+                - /bin/sh
+                - -c
+                - mariadb --password=$MYSQL_PASSWORD -e "BACKUP STAGE START; BACKUP STAGE BLOCK_COMMIT"
+          pre:
+            - exec:
+              command:
+                - /bin/sh
+                - -c
+                - mariadb --password=$MYSQL_PASSWORD -e "BACKUP STAGE END"
     includedNamespaces:
     - '*'
     metadata: {}
