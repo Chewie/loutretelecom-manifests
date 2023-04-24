@@ -39,8 +39,11 @@ helmCharts:
         affinity: ""
       monitoring:
         selfMonitoring:
+          enabled: false
           grafanaAgent:
             installOperator: false
+      test:
+        enabled: false
   - name: grafana-agent-operator
     version: 0.2.15
     repo: https://grafana.github.io/helm-charts
@@ -50,3 +53,5 @@ helmCharts:
 
 resources:
   - sealed-secret-grafana.yaml
+  - grafana-agent.yaml
+  - grafana-agent-logs.yaml
