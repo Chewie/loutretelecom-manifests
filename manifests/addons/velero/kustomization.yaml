@@ -1,4 +1,60 @@
+helmCharts:
+  - name: velero
+    version: 3.2.0
+    repo: https://vmware-tanzu.github.io/helm-charts/
+    releaseName: velero
+    namespace: velero
+    includeCRDs: true
+    valuesInline:
+      initContainers:
+      - image: velero/velero-plugin-for-aws:v1.7.0
+        imagePullPolicy: IfNotPresent
+        name: velero-plugin-for-aws
+        volumeMounts:
+        - mountPath: /target
+          name: plugins
+      configuration:
+        provider: aws
+        defaultVolumesToFsBackup: true
+        backupStorageLocation:
+          default: true
+          bucket: loutretelecom-cluster-backup
+          provider: aws
+          config:
+            region: eu-west-3
+      credentials:
+        existingSecret: cloud-credentials
+      snapshotsEnabled: false
+      deployNodeAgent: true
+      schedules:
+        daily:
+          schedule: '@every 24h'
+          template:
+            hooks:
+              resources:
+                - name: mariadb
+                  labelSelector:
+                    matchLabels:
+                      app: mariadb
+                  pre:
+                    - exec:
+                        command:
+                          - /bin/sh
+                          - -c
+                          #- mariadb --password=$MYSQL_PASSWORD -e "BACKUP STAGE START; BACKUP STAGE BLOCK_COMMIT"
+                          - mariadb --password=$MYSQL_PASSWORD -e "FLUSH TABLES WITH READ LOCK"
+                  post:
+                    - exec:
+                        command:
+                          - /bin/sh
+                          - -c
+                          #- mariadb --password=$MYSQL_PASSWORD -e "BACKUP STAGE END"
+                          - mariadb --password=$MYSQL_PASSWORD -e "UNLOCK TABLES"
+            includedNamespaces:
+            - '*'
+            ttl: 720h0m0s
+          useOwnerReferencesInBackup: false
+
+
 resources:
-  - velero.yaml
   - credentials.yaml
-  - daily-schedule.yaml
