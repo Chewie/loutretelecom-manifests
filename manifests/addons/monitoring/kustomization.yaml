@@ -15,6 +15,10 @@ helmCharts:
         ingressClassName: nginx
       persistence:
         enabled: true
+      admin:
+        existingSecret: grafana
+        userKey: admin-user
+        passwordKey: admin-password
   - name: loki
     version: 5.2.0
     repo: https://grafana.github.io/helm-charts
@@ -43,3 +47,6 @@ helmCharts:
     releaseName: grafana-agent-operator
     namespace: monitoring
     includeCRDs: true
+
+resources:
+  - sealed-secret-grafana.yaml
