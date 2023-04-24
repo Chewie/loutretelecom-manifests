@@ -3983,7 +3983,7 @@ items:
           - mountPath: /credentials
             name: cloud-credentials
         initContainers:
-        - image: velero/velero-plugin-for-aws:v1.4.0
+        - image: velero/velero-plugin-for-aws:v1.7.0
           imagePullPolicy: IfNotPresent
           name: velero-velero-plugin-for-aws
           resources: {}
