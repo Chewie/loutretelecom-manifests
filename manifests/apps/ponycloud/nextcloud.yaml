@@ -14,10 +14,10 @@ spec:
   template:
     metadata:
       annotations:
-        pre.hook.backup.velero.io/container=app
-        pre.hook.backup.velero.io/command='["/sbin/runuser", "-u", "www-data", "php", "occ", "maintenance:mode", "--on"]'
-        post.hook.backup.velero.io/container=app
-        post.hook.backup.velero.io/command='["/sbin/runuser", "-u", "www-data", "php", "occ", "maintenance:mode", "--off"]'
+        pre.hook.backup.velero.io/container: app
+        pre.hook.backup.velero.io/command: '["/sbin/runuser", "-u", "www-data", "php", "occ", "maintenance:mode", "--on"]'
+        post.hook.backup.velero.io/container: app
+        post.hook.backup.velero.io/command: '["/sbin/runuser", "-u", "www-data", "php", "occ", "maintenance:mode", "--off"]'
       labels:
         app: nextcloud
     spec:
