@@ -3962,7 +3962,7 @@ items:
             value: /credentials/cloud
           - name: ALIBABA_CLOUD_CREDENTIALS_FILE
             value: /credentials/cloud
-          image: velero/velero:v1.9.1
+          image: velero/velero:v1.11.0
           imagePullPolicy: IfNotPresent
           name: velero
           ports:
@@ -4045,7 +4045,7 @@ items:
             value: /credentials/cloud
           - name: ALIBABA_CLOUD_CREDENTIALS_FILE
             value: /credentials/cloud
-          image: velero/velero:v1.9.1
+          image: velero/velero:v1.11.0
           imagePullPolicy: IfNotPresent
           name: restic
           resources:
