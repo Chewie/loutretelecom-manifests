@@ -10,8 +10,6 @@ spec:
       matchLabels:
         agent: grafana-agent
   logs:
-    externalLabels:
-      cluster: loutre
     instanceSelector:
       matchLabels:
         agent: grafana-agent

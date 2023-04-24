@@ -8,6 +8,8 @@ metadata:
 spec:
   clients:
     - url: http://loki-gateway/loki/api/v1/push
+      externalLabels:
+        cluster: loutre
   podLogsNamespaceSelector: {}
   podLogsSelector:
     matchLabels:
