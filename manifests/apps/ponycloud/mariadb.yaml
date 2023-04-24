@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: mariadb
-          image: mariadb
+          image: mariadb:10.11.2
           args:
             - --transaction-isolation=READ-COMMITTED
             - --binlog-format=ROW
