@@ -1,7 +1,7 @@
 namespace: monitoring
 helmCharts:
   - name: grafana
-    version: 6.52.9
+    version: 6.55.0
     repo: https://grafana.github.io/helm-charts
     releaseName: grafana
     namespace: monitoring
