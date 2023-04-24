@@ -1,7 +1,7 @@
 {
   "appName": "sealed-secrets",
   "userGivenName": "sealed-secrets",
-  "destNamespace": "default",
+  "destNamespace": "sealedsecrets",
   "destServer": "https://kubernetes.default.svc",
   "srcPath": "apps/sealed-secrets/overlays/addons",
   "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",

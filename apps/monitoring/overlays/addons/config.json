@@ -1,7 +1,7 @@
 {
   "appName": "monitoring",
   "userGivenName": "monitoring",
-  "destNamespace": "default",
+  "destNamespace": "monitoring",
   "destServer": "https://kubernetes.default.svc",
   "srcPath": "apps/monitoring/overlays/addons",
   "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
