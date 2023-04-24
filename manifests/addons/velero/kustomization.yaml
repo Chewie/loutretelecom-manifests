@@ -1,3 +1,4 @@
+namespace: velero
 helmCharts:
   - name: velero
     version: 3.2.0
