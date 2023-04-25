@@ -4,11 +4,11 @@ metadata:
   labels:
     agent: grafana-agent
   name: agent-eventhandler
-  namespace: lgtm
+  namespace: monitoring
 spec:
   config:
     cache_path: /etc/eventhandler/eventhandler.cache
-    logs_instance: lgtm/grafana-agent-logs
+    logs_instance: monitoring/grafana-agent-logs
   name: eventhandler
   type:
     unique: true
@@ -26,12 +26,12 @@ metadata:
   labels:
     agent: grafana-agent
   name: node-exporter
-  namespace: lgtm
+  namespace: monitoring
 spec:
   config:
     autoscrape:
       enable: true
-      metrics_instance: lgtm/grafana-agent-metrics
+      metrics_instance: monitoring/grafana-agent-metrics
     procfs_path: host/proc
     rootfs_path: /host/root
     sysfs_path: /host/sys
@@ -61,7 +61,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: agent-eventhandler
-  namespace: lgtm
+  namespace: monitoring
 spec:
   accessModes:
   - ReadWriteOnce
