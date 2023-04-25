@@ -14,6 +14,11 @@ spec:
       regex: coredns_cache_misses_total
       sourceLabels:
       - __name__
+    relabelings:
+      - sourceLabels:
+        - job
+        action: lowercase
+        targetLabel: job
     port: metrics
   jobLabel: kubernetes.io/name
   namespaceSelector:
