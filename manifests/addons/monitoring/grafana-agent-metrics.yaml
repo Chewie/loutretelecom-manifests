@@ -43,7 +43,8 @@ spec:
     tlsConfig:
       insecureSkipVerify: true
   namespaceSelector:
-    any: true
+    matchNames:
+    - monitoring
   selector:
     matchLabels:
       app.kubernetes.io/name: kubelet
@@ -107,7 +108,8 @@ spec:
     tlsConfig:
       insecureSkipVerify: true
   namespaceSelector:
-    any: true
+    matchNames:
+    - monitoring
   selector:
     matchLabels:
       app.kubernetes.io/name: kubelet
