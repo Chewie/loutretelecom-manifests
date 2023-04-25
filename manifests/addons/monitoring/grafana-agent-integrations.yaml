@@ -35,7 +35,7 @@ spec:
     procfs_path: host/proc
     rootfs_path: /host/root
     sysfs_path: /host/sys
-    relabel_configs:
+    relabelings:
     - action: replace
       replacement: node-exporter
       targetLabel: job
