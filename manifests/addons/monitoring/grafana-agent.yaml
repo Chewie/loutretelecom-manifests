@@ -19,7 +19,7 @@ spec:
     instanceSelector:
       matchLabels:
         agent: grafana-agent
-    scrapeInterval: 60s
+    scrapeInterval: 15s
   serviceAccountName: grafana-agent
 ---
 apiVersion: v1
