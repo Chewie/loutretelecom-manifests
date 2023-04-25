@@ -32,13 +32,13 @@ spec:
     autoscrape:
       enable: true
       metrics_instance: monitoring/grafana-agent-metrics
+      relabel_configs:
+      - action: replace
+        replacement: node-exporter
+        targetLabel: job
     procfs_path: host/proc
     rootfs_path: /host/root
     sysfs_path: /host/sys
-    relabelings:
-    - action: replace
-      replacement: node-exporter
-      targetLabel: job
   name: node_exporter
   type:
     allNodes: true
