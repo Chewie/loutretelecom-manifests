@@ -77,3 +77,5 @@ resources:
   - sealed-secret-grafana.yaml
   - grafana-agent.yaml
   - grafana-agent-logs.yaml
+  - grafana-agent-metrics.yaml
+  - grafana-agent-integrations.yaml
