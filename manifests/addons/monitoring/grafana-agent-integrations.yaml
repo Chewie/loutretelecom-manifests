@@ -36,6 +36,12 @@ spec:
       - action: replace
         replacement: node-exporter
         target_label: job
+      - action: replace
+        source_labels:
+          - instance
+        regex: (.*):(\d+)
+        replacement: $1
+        target_label: nodename
     procfs_path: host/proc
     rootfs_path: /host/root
     sysfs_path: /host/sys
