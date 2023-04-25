@@ -62,6 +62,15 @@ helmCharts:
           enabled: true
       selfMonitor:
         enabled: true
+  - name: mimir-distributed
+    version: 4.4.0-weekly.234
+    repo: https://grafana.github.io/helm-charts
+    releaseName: mimir
+    namespace: monitoring
+    valuesInline:
+      metaMonitoring:
+        serviceMonitor:
+          enabled: true
 
 
 resources:
