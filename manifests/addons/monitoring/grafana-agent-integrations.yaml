@@ -42,12 +42,6 @@ spec:
         regex: (.*):(\d+)
         replacement: $1
         target_label: nodename
-      - action: replace
-        source_labels:
-          - agent_hostname
-        regex: (.*):(\d+)
-        replacement: $1
-        target_label: instance
     procfs_path: host/proc
     rootfs_path: /host/root
     sysfs_path: /host/sys
