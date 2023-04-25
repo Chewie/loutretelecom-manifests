@@ -92,6 +92,10 @@ helmCharts:
     releaseName: grafana-agent-operator
     namespace: monitoring
     includeCRDs: true
+    valuesInline:
+      kubeletService:
+        namespace: monitoring
+        serviceName: kubelet
   - name: kube-state-metrics
     version: 5.6.0
     repo: https://prometheus-community.github.io/helm-charts
