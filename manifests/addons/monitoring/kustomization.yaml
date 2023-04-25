@@ -126,3 +126,4 @@ resources:
   - grafana-agent-metrics.yaml
   - grafana-agent-integrations.yaml
   - service-monitor-apiserver.yaml
+  - service-monitor-coredns.yaml
