@@ -1,0 +1,40 @@
+discovery.kubernetes "all_pods" {
+  role = "pod"
+}
+
+loki.source.kubernetes "all_pods" {
+  targets = discovery.kubernetes.all_pods.targets
+  forward_to = [loki.process.cri.receiver]
+}
+
+loki.process "cri" {
+  forward_to = [loki.write.loki.receiver]
+
+  stage.cri {}
+}
+
+
+loki.source.journal "read" {
+  forward_to = [loki.write.loki.receiver]
+  relabel_rules = loki.relabel.journal.rules
+}
+
+loki.relabel "journal" {
+  rule {
+    source_labels = ["__journal__systemd_unit"]
+    target_label = "unit"
+  }
+}
+
+loki.source.kubernetes_events "events" {
+  forward_to = [loki.write.loki.receiver]
+}
+
+loki.write "loki" {
+  external_labels = {
+    cluster = "loutretel"
+  }
+  endpoint {
+    url = "http://loki-gateway/loki/api/v1/push"
+  }
+}

@@ -86,16 +86,58 @@ helmCharts:
             installOperator: false
       test:
         enabled: false
-  - name: grafana-agent-operator
-    version: 0.2.15
+  #- name: grafana-agent-operator
+    #version: 0.2.15
+    #repo: https://grafana.github.io/helm-charts
+    #releaseName: grafana-agent-operator
+    #namespace: monitoring
+    #includeCRDs: true
+    #valuesInline:
+      #kubeletService:
+        #namespace: monitoring
+        #serviceName: kubelet
+  - name: grafana-agent
+    version: 0.12.0
     repo: https://grafana.github.io/helm-charts
-    releaseName: grafana-agent-operator
+    releaseName: grafana-agent
     namespace: monitoring
     includeCRDs: true
     valuesInline:
-      kubeletService:
-        namespace: monitoring
-        serviceName: kubelet
+      agent:
+        configMap:
+          create: false
+          name: grafana-agent
+          key: config.river
+        mounts:
+          varlog: true
+          dockercontainers: true
+          extra:
+            - mountPath: /host/root
+              name: rootfs
+            - mountPath: /host/sys
+              name: sysfs
+            - mountPath: /host/proc
+              name: procfs
+        controller:
+          volumes:
+            extra:
+              - hostPath:
+                  path: /
+                name: rootfs
+              - hostPath:
+                  path: /sys
+                name: sysfs
+              - hostPath:
+                  path: /proc
+                name: procfs
+      ingress:
+        enabled: true
+        hosts: [ "faro.loutre.tel" ]
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/auth-url: "https://sso.loutre.tel/oauth2/auth"
+          nginx.ingress.kubernetes.io/auth-signin: "https://sso.loutre.tel/oauth2/start?rd=/redirect/$http_host$request_uri"
+
   - name: kube-state-metrics
     version: 5.6.0
     repo: https://prometheus-community.github.io/helm-charts
@@ -136,9 +178,14 @@ helmCharts:
 
 resources:
   - sealed-secret-grafana.yaml
-  - grafana-agent.yaml
-  - grafana-agent-logs.yaml
-  - grafana-agent-metrics.yaml
-  - grafana-agent-integrations.yaml
-  - service-monitor-apiserver.yaml
-  - service-monitor-coredns.yaml
+  #- grafana-agent.yaml
+  #- grafana-agent-logs.yaml
+  #- grafana-agent-metrics.yaml
+  #- grafana-agent-integrations.yaml
+  #- service-monitor-apiserver.yaml
+  #- service-monitor-coredns.yaml
+
+configMapGenerator:
+  - name: grafana-agent
+    files:
+      - agent.river
