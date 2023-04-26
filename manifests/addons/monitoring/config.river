@@ -15,11 +15,11 @@ loki.process "cri" {
 
 
 loki.source.journal "read" {
-  forward_to = [loki.write.loki.receiver]
-  relabel_rules = loki.relabel.journal.rules
+  forward_to = [loki.relabel.journal.receiver]
 }
 
 loki.relabel "journal" {
+  forward_to = [loki.write.loki.receiver]
   rule {
     source_labels = ["__journal__systemd_unit"]
     target_label = "unit"
