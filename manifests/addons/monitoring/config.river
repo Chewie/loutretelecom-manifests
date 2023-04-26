@@ -8,11 +8,26 @@ loki.source.kubernetes "all_pods" {
 }
 
 loki.process "cri" {
-  forward_to = [loki.write.loki.receiver]
+  forward_to = [loki.relabel.all_pods.receiver]
 
   stage.cri {}
 }
 
+loki.relabel "all_pods" {
+  forward_to = [loki.write.loki.receiver]
+  rule {
+    source_labels = ["__meta_kubernetes_namespace"]
+    target_label = "namespace"
+  }
+  rule {
+    source_labels = ["__meta_kubernetes_pod_name"]
+    target_label = "pod"
+  }
+  rule {
+    source_labels = ["__meta_kubernetes_container_name"]
+    target_label = "container"
+  }
+}
 
 loki.source.journal "read" {
   forward_to = [loki.relabel.journal.receiver]
