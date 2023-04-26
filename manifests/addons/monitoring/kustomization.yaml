@@ -188,4 +188,4 @@ resources:
 configMapGenerator:
   - name: grafana-agent
     files:
-      - agent.river
+      - config.river
