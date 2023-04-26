@@ -32,7 +32,7 @@ loki.source.kubernetes_events "events" {
 
 loki.write "loki" {
   external_labels = {
-    cluster = "loutretel"
+    cluster = "loutretel",
   }
   endpoint {
     url = "http://loki-gateway/loki/api/v1/push"
