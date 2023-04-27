@@ -189,3 +189,5 @@ configMapGenerator:
   - name: grafana-agent
     files:
       - config.river
+    options:
+      disableNameSuffixHash: true
