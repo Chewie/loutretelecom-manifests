@@ -16,6 +16,10 @@ discovery.relabel "all_pods" {
     source_labels = ["__meta_kubernetes_container_name"]
     target_label = "container"
   }
+  rule {
+    source_labels = ["__meta_kubernetes_controller_name"]
+    target_label = "controller"
+  }
 }
 
 loki.source.kubernetes "all_pods" {
