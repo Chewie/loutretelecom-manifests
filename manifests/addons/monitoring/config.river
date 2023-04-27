@@ -1,3 +1,5 @@
+// Logs
+
 discovery.kubernetes "all_pods" {
   role = "pod"
 }
@@ -24,11 +26,13 @@ discovery.relabel "all_pods" {
 
 loki.source.kubernetes "all_pods" {
   targets = discovery.relabel.all_pods.output
-  forward_to = [loki.process.cri.receiver]
+  forward_to = [loki.process.all_pods.receiver]
 }
 
-loki.process "cri" {
+loki.process "all_pods" {
   forward_to = [loki.write.loki.receiver]
+
+  stage.cri {}
 }
 
 loki.source.journal "read" {
@@ -53,5 +57,37 @@ loki.write "loki" {
   }
   endpoint {
     url = "http://loki-gateway/loki/api/v1/push"
+  }
+}
+
+
+// Metrics
+
+discovery.kubernetes "all_nodes" {
+  role = "node"
+}
+
+discovery.relabel "all_nodes" {
+  targets = discovery.kubernetes.all_nodes.targets
+  rule {
+    regex = "__meta_kubernetes_(.*)"
+    action = "labelmap"
+  }
+}
+
+prometheus.scrape "cadvisor" {
+  targets = discovery.relabel.all_nodes.output
+  forward_to = [prometheus.remote_write.mimir.receiver]
+
+  scrape_interval = "15s"
+  metrics_path = "/metrics/cadvisor"
+}
+
+prometheus.remote_write "mimir" {
+  external_labels = {
+    cluster = "loutretel",
+  }
+  endpoint {
+    url = "http://mimir-nginx/api/v1/push"
   }
 }
