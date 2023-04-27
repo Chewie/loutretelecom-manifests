@@ -2,19 +2,8 @@ discovery.kubernetes "all_pods" {
   role = "pod"
 }
 
-loki.source.kubernetes "all_pods" {
+discovery.relabel "all_pods" {
   targets = discovery.kubernetes.all_pods.targets
-  forward_to = [loki.process.cri.receiver]
-}
-
-loki.process "cri" {
-  forward_to = [loki.relabel.all_pods.receiver]
-
-  stage.cri {}
-}
-
-loki.relabel "all_pods" {
-  forward_to = [loki.write.loki.receiver]
   rule {
     source_labels = ["__meta_kubernetes_namespace"]
     target_label = "namespace"
@@ -27,6 +16,15 @@ loki.relabel "all_pods" {
     source_labels = ["__meta_kubernetes_container_name"]
     target_label = "container"
   }
+}
+
+loki.source.kubernetes "all_pods" {
+  targets = discovery.relabel.all_pods.targets
+  forward_to = [loki.process.cri.receiver]
+}
+
+loki.process "cri" {
+  forward_to = [loki.write.loki.receiver]
 }
 
 loki.source.journal "read" {
