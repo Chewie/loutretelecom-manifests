@@ -89,6 +89,20 @@ prometheus.scrape "cadvisor" {
   }
 }
 
+prometheus.scrape "kubelet" {
+  targets = discovery.relabel.all_nodes.output
+  forward_to = [prometheus.remote_write.mimir.receiver]
+
+  scrape_interval = "15s"
+  metrics_path = "/metrics"
+  scheme = "https"
+
+  bearer_token_file = "/var/run/secrets/kubernetes.io/serviceaccount/token"
+  tls_config {
+    ca_file = "/var/run/secrets/kubernetes.io/serviceaccount/ca.crt"
+  }
+}
+
 prometheus.remote_write "mimir" {
   external_labels = {
     cluster = "loutretel",
