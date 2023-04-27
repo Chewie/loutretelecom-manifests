@@ -81,6 +81,7 @@ prometheus.scrape "cadvisor" {
 
   scrape_interval = "15s"
   metrics_path = "/metrics/cadvisor"
+  scheme = "https"
 }
 
 prometheus.remote_write "mimir" {
