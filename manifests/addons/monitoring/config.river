@@ -17,7 +17,7 @@ discovery.relabel "all_pods" {
     target_label = "container"
   }
   rule {
-    source_labels = ["__meta_kubernetes_controller_name"]
+    source_labels = ["__meta_kubernetes_pod_controller_name"]
     target_label = "controller"
   }
 }
