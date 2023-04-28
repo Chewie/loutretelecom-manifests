@@ -113,7 +113,7 @@ discovery.relabel "node_exporter" {
   targets = prometheus.exporter.unix.targets
 
   rule {
-    source_labels = ["__meta_kubernetes_pod_node_name"]
+    replacement = env("HOSTNAME")
     target_label = "nodename"
   }
 }
