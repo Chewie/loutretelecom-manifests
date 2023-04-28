@@ -111,7 +111,7 @@ prometheus.exporter.unix {
 
 
 prometheus.scrape "node_exporter" {
-  targets = discovery.relabel.node_exporter.output
+  targets = prometheus.exporter.unix.targets
   forward_to = [prometheus.relabel.node_exporter.receiver]
 
   job_name = "node-exporter"
