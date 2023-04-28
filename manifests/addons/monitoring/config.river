@@ -109,8 +109,17 @@ prometheus.exporter.unix {
   rootfs_path = "/host/root"
 }
 
-discovery.relabel "node_exporter" {
-  targets = prometheus.exporter.unix.targets
+
+prometheus.scrape "node_exporter" {
+  targets = discovery.relabel.node_exporter.output
+  forward_to = [prometheus.relabel.node_exporter.receiver]
+
+  job_name = "node-exporter"
+  scrape_interval = "15s"
+}
+
+prometheus.relabel "node_exporter" {
+  forward_to = [prometheus.remote_write.mimir.receiver]
 
   rule {
     replacement = env("HOSTNAME")
@@ -121,14 +130,6 @@ discovery.relabel "node_exporter" {
     replacement = "node-exporter"
     target_label = "job"
   }
-}
-
-prometheus.scrape "node_exporter" {
-  targets = discovery.relabel.node_exporter.output
-  forward_to = [prometheus.remote_write.mimir.receiver]
-
-  job_name = "node-exporter"
-  scrape_interval = "15s"
 }
 
 
