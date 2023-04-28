@@ -42,7 +42,7 @@ spec:
         regex: (.*):(\d+)
         replacement: $1
         target_label: nodename
-    procfs_path: host/proc
+    procfs_path: /host/proc
     rootfs_path: /host/root
     sysfs_path: /host/sys
   name: node_exporter

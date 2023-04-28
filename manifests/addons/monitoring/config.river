@@ -104,11 +104,27 @@ prometheus.scrape "kubelet" {
 }
 
 prometheus.exporter.unix {
+  procfs_path = "/host/proc"
+  sysfs_path = "/host/sys"
+  rootfs_path = "/host/root"
 }
+
 
 prometheus.scrape "node_exporter" {
   targets = prometheus.exporter.unix.targets
+  forward_to = [prometheus.relabel.node_exporter.receiver]
+
+  scrape_interval = "15s"
+}
+
+prometheus.relabel "node_exporter" {
   forward_to = [prometheus.remote_write.mimir.receiver]
+
+  rule {
+    source_labels = "__meta_kubernetes_pod_node_name"
+    target_label = "nodename"
+  }
+
 }
 
 prometheus.remote_write "mimir" {
