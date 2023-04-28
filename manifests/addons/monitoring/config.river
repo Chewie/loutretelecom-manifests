@@ -111,7 +111,6 @@ prometheus.exporter.unix {
 
 discovery.relabel "node_exporter" {
   targets = prometheus.exporter.unix.targets
-  forward_to = [prometheus.scrape.node_exporter.receiver]
 
   rule {
     source_labels = ["__meta_kubernetes_pod_node_name"]
@@ -120,7 +119,7 @@ discovery.relabel "node_exporter" {
 }
 
 prometheus.scrape "node_exporter" {
-  targets = prometheus.exporter.unix.targets
+  targets = discovery.relabel.node_exporter.output
   forward_to = [prometheus.remote_write.mimir.receiver]
 
   scrape_interval = "15s"
