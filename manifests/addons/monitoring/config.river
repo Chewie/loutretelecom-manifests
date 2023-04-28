@@ -131,6 +131,29 @@ prometheus.scrape "node_exporter" {
   scrape_interval = "15s"
 }
 
+
+discovery.kubernetes "all_services" {
+  role = "service"
+}
+
+discovery.relabel "kube_state_metrics" {
+  targets = discovery.kubernetes.all_services.targets
+
+  rule {
+    action = "keep"
+    source_labels = ["__meta_kubernetes_service_name"]
+    regex = "kube-state-metrics"
+  }
+}
+
+prometheus.scrape "kube_state_metrics" {
+  targets = discovery.relabel.kube_state_metrics.output
+  forward_to = [prometheus.remote_write.mimir.receiver]
+
+  scrape_interval = "15s"
+}
+
+
 prometheus.remote_write "mimir" {
   external_labels = {
     cluster = "loutretel",
