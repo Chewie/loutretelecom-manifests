@@ -204,4 +204,4 @@ patchesJSON6902:
     patch: |-
       - op: add
         path: /rules/0/resources/-
-        value: node/metrics
+        value: nodes/metrics
