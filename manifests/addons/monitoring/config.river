@@ -106,7 +106,7 @@ prometheus.scrape "kubelet" {
 prometheus.exporter.unix {
 }
 
-prometheus.scrape "node-exporter" {
+prometheus.scrape "node_exporter" {
   targets = prometheus.exporter.unix.targets
   forward_to = [prometheus.remote_write.mimir.receiver]
 }
