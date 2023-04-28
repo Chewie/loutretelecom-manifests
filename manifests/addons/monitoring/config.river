@@ -121,7 +121,7 @@ prometheus.relabel "node_exporter" {
   forward_to = [prometheus.remote_write.mimir.receiver]
 
   rule {
-    source_labels = "__meta_kubernetes_pod_node_name"
+    source_labels = ["__meta_kubernetes_pod_node_name"]
     target_label = "nodename"
   }
 
