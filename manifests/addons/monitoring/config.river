@@ -116,6 +116,11 @@ discovery.relabel "node_exporter" {
     replacement = env("HOSTNAME")
     target_label = "nodename"
   }
+
+  rule {
+    replacement = "node-exporter"
+    target_label = "job"
+  }
 }
 
 prometheus.scrape "node_exporter" {
