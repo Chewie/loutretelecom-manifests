@@ -122,6 +122,7 @@ prometheus.scrape "node_exporter" {
   targets = discovery.relabel.node_exporter.output
   forward_to = [prometheus.remote_write.mimir.receiver]
 
+  job_name = "node-exporter"
   scrape_interval = "15s"
 }
 
