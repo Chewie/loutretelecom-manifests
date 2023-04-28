@@ -103,6 +103,14 @@ prometheus.scrape "kubelet" {
   }
 }
 
+prometheus.exporter.unix {
+}
+
+prometheus.scrape "node-exporter" {
+  targets = prometheus.exporter.unix.targets
+  forward_to = [prometheus.remote_write.mimir.receiver]
+}
+
 prometheus.remote_write "mimir" {
   external_labels = {
     cluster = "loutretel",
