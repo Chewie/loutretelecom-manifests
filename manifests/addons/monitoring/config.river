@@ -71,7 +71,7 @@ discovery.relabel "all_nodes" {
   targets = discovery.kubernetes.all_nodes.targets
   rule {
     source_labels = ["__meta_kubernetes_node_name"]
-    target_label = "nodename"
+    target_label = "node"
   }
 }
 
