@@ -109,22 +109,21 @@ prometheus.exporter.unix {
   rootfs_path = "/host/root"
 }
 
-
-prometheus.scrape "node_exporter" {
+discovery.relabel "node_exporter" {
   targets = prometheus.exporter.unix.targets
-  forward_to = [prometheus.relabel.node_exporter.receiver]
-
-  scrape_interval = "15s"
-}
-
-prometheus.relabel "node_exporter" {
-  forward_to = [prometheus.remote_write.mimir.receiver]
+  forward_to = [prometheus.scrape.node_exporter.receiver]
 
   rule {
     source_labels = ["__meta_kubernetes_pod_node_name"]
     target_label = "nodename"
   }
+}
 
+prometheus.scrape "node_exporter" {
+  targets = prometheus.exporter.unix.targets
+  forward_to = [prometheus.remote_write.mimir.receiver]
+
+  scrape_interval = "15s"
 }
 
 prometheus.remote_write "mimir" {
