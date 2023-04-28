@@ -193,3 +193,15 @@ configMapGenerator:
       - config.river
     options:
       disableNameSuffixHash: true
+
+# TODO: Remove this when update 0.34 hits
+patchesJSON6902:
+  - target:
+      group: rbac.authorization.k8s.io
+      version: v1
+      kind: ClusterRole
+      name: grafana-agent
+    patch: |-
+      - op: add
+        path: /rules/0/resources/-
+        value: node/metrics
