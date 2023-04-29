@@ -1,0 +1,20 @@
+mimir:
+  structuredConfig:
+    multitenancy_enabled: false
+    limits:
+      compactor_blocks_retention_period: 30d
+      max_label_names_per_series: 60
+ingester:
+  zoneAwareReplication:
+    enabled: false
+  persistentVolume:
+    size: 100Gi
+store_gateway:
+  zoneAwareReplication:
+    enabled: false
+minio:
+  persistence:
+    size: 100Gi
+metaMonitoring:
+  serviceMonitor:
+    enabled: true

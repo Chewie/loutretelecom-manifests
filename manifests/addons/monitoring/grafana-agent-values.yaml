@@ -1,0 +1,27 @@
+agent:
+  configMap:
+    create: false
+    name: grafana-agent
+    key: config.river
+  mounts:
+    varlog: true
+    dockercontainers: true
+    extra:
+      - mountPath: /host/root
+        name: rootfs
+      - mountPath: /host/sys
+        name: sysfs
+      - mountPath: /host/proc
+        name: procfs
+controller:
+  volumes:
+    extra:
+      - hostPath:
+          path: /
+        name: rootfs
+      - hostPath:
+          path: /sys
+        name: sysfs
+      - hostPath:
+          path: /proc
+        name: procfs
