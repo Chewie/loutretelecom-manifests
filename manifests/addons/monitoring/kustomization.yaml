@@ -15,7 +15,7 @@ helmCharts:
     valuesFile: loki-values.yaml
 
   - name: mimir-distributed
-    version: 4.3.1
+    version: 4.4.1
     repo: https://grafana.github.io/helm-charts
     releaseName: mimir
     namespace: monitoring
