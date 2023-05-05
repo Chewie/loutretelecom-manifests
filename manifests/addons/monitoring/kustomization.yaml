@@ -30,7 +30,7 @@ helmCharts:
     valuesFile: grafana-agent-values.yaml
 
   - name: kube-state-metrics
-    version: 5.6.0
+    version: 5.6.1
     repo: https://prometheus-community.github.io/helm-charts
     releaseName: kube-state-metrics
     namespace: monitoring
