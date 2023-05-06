@@ -1,0 +1,14 @@
+namespace: kube-system
+helmCharts:
+  - name: cilium
+    version: 1.13.2
+    repo: https://helm.cilium.io
+    releaseName: cilium
+    namespace: kube-system
+    includeCRDs: true
+    valuesInline:
+      kubeProxyReplacement: strict
+      k8sServiceHost: 148.251.135.212
+      k8sServicePort: 64443
+      operator:
+        replicas: 1
