@@ -15,15 +15,16 @@ configMapGenerator:
   - |
     resource.exclusions=
       - apiGroups:
-        - cilium.io
+          - cilium.io
         kinds:
           - CiliumIdentity
         clusters:
           - "*"
       - apiGroups:
-        - velero.io
+          - velero.io
         kinds:
           - PodVolumeBackup
+          - Backup
         clusters:
           - "*"
   name: argocd-cm
