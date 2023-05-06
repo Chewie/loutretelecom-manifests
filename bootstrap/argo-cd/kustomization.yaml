@@ -20,6 +20,12 @@ configMapGenerator:
           - CiliumIdentity
         clusters:
           - "*"
+      - apiGroups:
+        - velero.io
+        kinds:
+          - PodVolumeBackup
+        clusters:
+          - "*"
   name: argocd-cm
 kind: Kustomization
 namespace: argocd
