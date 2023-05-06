@@ -17,4 +17,5 @@ minio:
     size: 100Gi
 metaMonitoring:
   serviceMonitor:
-    enabled: true
+    # TODO: turn it back on when grafana agent supports it
+    enabled: false

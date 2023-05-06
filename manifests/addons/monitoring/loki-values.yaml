@@ -12,6 +12,7 @@ gateway:
   affinity: ""
 monitoring:
   selfMonitoring:
+    # TODO: turn it back on when grafana agent supports it
     enabled: false
     grafanaAgent:
       installOperator: false
