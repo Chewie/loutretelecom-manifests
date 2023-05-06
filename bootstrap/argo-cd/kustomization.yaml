@@ -12,6 +12,14 @@ configMapGenerator:
       usernameSecret:
         key: git_username
         name: autopilot-secret
+  - |
+    resource.exclusions=
+      - apiGroups:
+        - cilium.io
+        kinds:
+          - CiliumIdentity
+        clusters:
+          - "*"
   name: argocd-cm
 kind: Kustomization
 namespace: argocd

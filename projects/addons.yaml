@@ -82,6 +82,26 @@ spec:
         jsonPointers:
         - /status
         kind: Application
+      # Ugly ugly hack because I'm too lazy to create a specific project
+      - group: ""
+        kind: Secret
+        name: cilium-ca
+        jsonPointers:
+        - /data/ca.crt
+        - /data/ca.key
+      - group: ""
+        kind: Secret
+        name: hubble-ca-secret
+        jsonPointers:
+        - /data/ca.crt
+        - /data/ca.key
+      - group: ""
+        kind: Secret
+        name: hubble-server-certs
+        jsonPointers:
+        - /data/ca.crt
+        - /data/tls.crt
+        - /data/tls.key
       project: addons
       source:
         path: '{{ srcPath }}'
