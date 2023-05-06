@@ -1,0 +1,14 @@
+namespace: openebs
+helmCharts:
+  - name: openebs
+    version: 3.6.0
+    repo: https://openebs.github.io/charts
+    releaseName: openebs
+    namespace: openebs
+    includeCRDs: true
+    valuesInline:
+      lvm-localpv:
+        enabled: true
+
+resources:
+  - storage-class-lvm.yaml
