@@ -12,3 +12,11 @@ helmCharts:
       k8sServicePort: 64443
       operator:
         replicas: 1
+      hubble:
+        relay:
+          enabled: true
+        ui:
+          enabled: true
+        tls:
+          auto:
+            method: cronJob
