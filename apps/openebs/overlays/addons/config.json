@@ -1,0 +1,11 @@
+{
+  "appName": "openebs",
+  "userGivenName": "openebs",
+  "destNamespace": "default",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "apps/openebs/overlays/addons",
+  "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
+  "srcTargetRevision": "",
+  "labels": null,
+  "annotations": null
+}
