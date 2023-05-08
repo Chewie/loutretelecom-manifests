@@ -20,3 +20,5 @@ helmCharts:
         tls:
           auto:
             method: cronJob
+      certgen:
+        ttlSecondsAfterFinished: ''
