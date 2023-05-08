@@ -1,7 +1,7 @@
 namespace: velero
 helmCharts:
   - name: velero
-    version: 4.0.1
+    version: 4.0.2
     repo: https://vmware-tanzu.github.io/helm-charts/
     releaseName: velero
     namespace: velero
