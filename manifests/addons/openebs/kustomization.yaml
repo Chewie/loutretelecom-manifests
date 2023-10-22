@@ -1,7 +1,7 @@
 namespace: openebs
 helmCharts:
   - name: openebs
-    version: 3.6.0
+    version: 3.9.0
     repo: https://openebs.github.io/charts
     releaseName: openebs
     namespace: openebs
