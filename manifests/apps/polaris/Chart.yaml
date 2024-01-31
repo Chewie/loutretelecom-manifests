@@ -25,5 +25,5 @@ appVersion: "1.16.0"
 
 dependencies:
   - name: polaris
-    version: 5.7.3
+    version: 5.17.0
     repository: https://charts.fairwinds.com/stable
