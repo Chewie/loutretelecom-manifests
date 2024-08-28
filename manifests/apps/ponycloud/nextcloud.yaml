@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: nginx:1.24.0
+          image: nginx:1.27.1
           volumeMounts:
             - name: nextcloud-data
               mountPath: /var/www/html
