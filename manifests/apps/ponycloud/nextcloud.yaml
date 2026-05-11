@@ -62,7 +62,7 @@ spec:
             - name: nextcloud-data
               mountPath: /var/www/html
         - name: cron
-          image: nextcloud:26-fpm
+          image: nextcloud:33.0.3-fpm
           command: ["/cron.sh"]
           volumeMounts:
             - name: nextcloud-data
