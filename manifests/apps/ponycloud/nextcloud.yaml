@@ -33,7 +33,7 @@ spec:
           ports:
             - containerPort: 80
         - name: app
-          image: nextcloud:30.0.17-fpm
+          image: nextcloud:31.0.14-fpm
           env:
             - name: NEXTCLOUD_TRUSTED_DOMAINS
               value: "cloud.loutre.tel"
