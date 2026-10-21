@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: nginx:1.24.0
+          image: nginx:1.31.7
           volumeMounts:
             - name: nextcloud-data
               mountPath: /var/www/html
@@ -33,7 +33,7 @@ spec:
           ports:
             - containerPort: 80
         - name: app
-          image: nextcloud:33.0.3-fpm
+          image: nextcloud:33.0.10-fpm
           env:
             - name: NEXTCLOUD_TRUSTED_DOMAINS
               value: "cloud.loutre.tel"
@@ -62,7 +62,7 @@ spec:
             - name: nextcloud-data
               mountPath: /var/www/html
         - name: cron
-          image: nextcloud:33.0.3-fpm
+          image: nextcloud:33.0.10-fpm
           command: ["/cron.sh"]
           volumeMounts:
             - name: nextcloud-data
