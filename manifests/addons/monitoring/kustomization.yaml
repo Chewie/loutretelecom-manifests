@@ -8,7 +8,7 @@ helmCharts:
     valuesFile: grafana-values.yaml
 
   - name: loki
-    version: 5.5.0
+    version: 5.48.0
     repo: https://grafana.github.io/helm-charts
     releaseName: loki
     namespace: monitoring
