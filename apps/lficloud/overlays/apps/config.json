@@ -1,0 +1,11 @@
+{
+  "appName": "lficloud",
+  "userGivenName": "lficloud",
+  "destNamespace": "lficloud",
+  "destServer": "https://kubernetes.default.svc",
+  "srcPath": "apps/lficloud/overlays/apps",
+  "srcRepoURL": "https://github.com/Chewie/loutretelecom-manifests.git",
+  "srcTargetRevision": "",
+  "labels": null,
+  "annotations": null
+}
